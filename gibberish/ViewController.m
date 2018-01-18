@@ -24,16 +24,11 @@
 - (NSString*)gibberish:(NSString*)val {
     NSString *message = @"";
     
-    NSUInteger len = [val length];
-    unichar buffer[len+1];
-    [val getCharacters:buffer range:NSMakeRange(0, len)];
-    
-    for(int i = 0; i < len; i++) {
-        NSString* currChar = [NSString stringWithFormat:@"%c", buffer[i]];
+    for (NSInteger i = 0; i < val.length; i++){
+        NSString* currChar = [NSString stringWithFormat:@"%c", [val characterAtIndex:i]];
+        BOOL isConsonant = [self.consonants containsObject:currChar];
         
-        BOOL isCon = [self.consonants containsObject:currChar];
-        
-        if (isCon) {
+        if (isConsonant) {
             NSString* appendText = [NSString stringWithFormat:@"%@o%@", currChar, currChar];
             message = [message stringByAppendingString:appendText];
         } else {
@@ -51,7 +46,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 
